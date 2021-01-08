@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Eye ball ON Mousemove</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="face">
+        <div class="eyes">
+            <div class="eye"></div>
+            <div class="eye"></div>
+        </div>
+    </div>
+    <div id="text" data-text="Simply A-Man">Simply A-Man</div>
+    <script type="text/javascript">
+      var text = document.getElementById('text')
+      var shadow = '';
+      for(var i = 0; i <30; i++)
+      {
+          shadow +=(shadow? ',':'')+ -i*1+'px '+ i*1+'px 0 #d9d9d9 ';  
+      }
+      text.style.textShadow = shadow;
+    </script>
+    <script>
+        document.querySelector('body').addEventListener('mousemove', eyeball);
+        function eyeball(){
+            var eye = document.querySelectorAll('.eye');
+            eye.forEach(function(eye){
+                let x = (eye.getBoundingClientRect().left) + (eye.clientWidth / 2);
+                let y = (eye.getBoundingClientRect().top) + (eye.clientHeight / 2);
+                let radian = Math.atan2(event.pageX -x, event.pageY - y);
+                let rot = (radian * (180 / Math.PI) * -1) + 270;
+                eye.style.transform = "rotate("+ rot +"deg)";
+            })
+        }
+    </script>
+</body>
+</html>
